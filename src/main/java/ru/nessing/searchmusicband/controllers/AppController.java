@@ -18,9 +18,14 @@ public class AppController {
         return test;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public Optional<User> findUserById(@PathVariable Long id) {
         return appService.findUserById(id);
+    }
+
+    @GetMapping("/email/{email}")
+    public User findUserByEmail(@PathVariable String email) {
+        return appService.findUserByEmail(email);
     }
 
     @PostMapping
