@@ -38,4 +38,18 @@ public class AppService {
             return "Пользователь " + user.getName() + " создан";
         }
     }
+
+    public User updateState(String email, String password, String state) {
+        User user = appRepository.findUserByEmail(email);
+        if (user.getPassword().equals(password)) {
+            if (state.equals("public")) {
+                user.statePrivate();
+                appRepository.save(user);
+            } else {
+                user.statePublic();
+                appRepository.save(user);
+            }
+        }
+        return user;
+    }
 }

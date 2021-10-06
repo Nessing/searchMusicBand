@@ -15,6 +15,7 @@ public class UserDto {
     private String searching;
     private String genre;
     private String description;
+    private String state;
 
     public UserDto(User user) {
         this.id = user.getId();
@@ -26,6 +27,7 @@ public class UserDto {
         this.searching = user.getSearching();
         this.genre = user.getGenre();
         this.description = user.getDescription();
+        this.state = user.getState();
     }
 
     public UserDto(String email, String password, String name) {
@@ -67,6 +69,11 @@ public class UserDto {
 
         public UserDtoBuilder withDescription(String description) {
             userDto.description = description;
+            return this;
+        }
+
+        public UserDtoBuilder withState(String state) {
+            userDto.state = state;
             return this;
         }
 

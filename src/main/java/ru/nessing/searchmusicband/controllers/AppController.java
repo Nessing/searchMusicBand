@@ -28,6 +28,11 @@ public class AppController {
         return appService.findUserByEmail(email);
     }
 
+    @PostMapping("/updateState/{email}{password}{state}")
+    public User updateState(@PathVariable String email, String password, String state) {
+        return appService.updateState(email, password, state);
+    }
+
     @PostMapping
     public String saveNewUser(@RequestBody User user) {
         user.setId(null);

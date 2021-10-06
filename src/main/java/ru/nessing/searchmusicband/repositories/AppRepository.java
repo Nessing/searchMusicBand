@@ -7,4 +7,5 @@ import ru.nessing.searchmusicband.entities.User;
 @Repository
 public interface AppRepository extends JpaRepository<User, Long> {
     User findUserByEmail(String email);
+
 }
