@@ -23,14 +23,14 @@ public class AppController {
         return appService.findUserById(id);
     }
 
-    @GetMapping("/email/{email}")
-    public User findUserByEmail(@PathVariable String email) {
-        return appService.findUserByEmail(email);
+    @GetMapping("/nickname/{nickname}")
+    public User getUserByNickname(@PathVariable String nickname) {
+        return appService.getUserByNickname(nickname);
     }
 
-    @PostMapping("/updateState/{email}{password}{state}")
-    public User updateState(@PathVariable String email, String password, String state) {
-        return appService.updateState(email, password, state);
+    @PostMapping("/updateState/{nickname}{password}{state}")
+    public User updateState(@PathVariable String nickname, String password, String state) {
+        return appService.updateState(nickname, password, state);
     }
 
     @PostMapping

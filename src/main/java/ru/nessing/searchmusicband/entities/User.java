@@ -23,6 +23,9 @@ public class User implements UserCommand {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "nickname")
+    private String nickname;
+
     @Column(name = "name")
     private String name;
 

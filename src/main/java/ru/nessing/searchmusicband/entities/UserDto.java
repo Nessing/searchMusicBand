@@ -9,6 +9,7 @@ public class UserDto {
     private long id;
     private String email;
     private String password;
+    private String nickname;
     private String name;
     private String city;
     private String type;
@@ -21,6 +22,7 @@ public class UserDto {
         this.id = user.getId();
         this.email = user.getEmail();
         this.password = user.getPassword();
+        this.nickname = user.getNickname();
         this.name = user.getName();
         this.city = user.getCity();
         this.type = user.getType();
@@ -30,21 +32,55 @@ public class UserDto {
         this.state = user.getState();
     }
 
-    public UserDto(String email, String password, String name) {
+    public UserDto(String email, String password, String nickname, String name) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
         this.name = name;
     }
 
-    public static UserDtoBuilder builder(String email, String password, String name) {
-        return new UserDtoBuilder(email, password, name);
+    public static UserDtoBuilder builder(String email, String password, String nickname, String name) {
+        return new UserDtoBuilder(email, password, nickname, name);
+    }
+
+    public static UserDtoBuilder builder() {
+        return new UserDtoBuilder();
     }
 
     public static class UserDtoBuilder {
         private final UserDto userDto;
 
-        private UserDtoBuilder(String email, String password, String name) {
-            userDto = new UserDto(email, password, name);
+        public UserDtoBuilder() {
+            userDto = new UserDto();
+        }
+
+        private UserDtoBuilder(String email, String password, String nickname, String name) {
+            userDto = new UserDto(email, password, nickname, name);
+        }
+
+        public UserDtoBuilder withId(long id) {
+            userDto.id = id;
+            return this;
+        }
+
+        public UserDtoBuilder withEmail(String email) {
+            userDto.email = email;
+            return this;
+        }
+
+        public UserDtoBuilder withPassword(String password) {
+            userDto.password = password;
+            return this;
+        }
+
+        public UserDtoBuilder withNickname(String nickname) {
+            userDto.nickname = nickname;
+            return this;
+        }
+
+        public UserDtoBuilder withName(String name) {
+            userDto.name = name;
+            return this;
         }
 
         public UserDtoBuilder withCity(String city) {
