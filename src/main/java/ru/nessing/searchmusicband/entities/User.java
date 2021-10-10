@@ -2,7 +2,6 @@ package ru.nessing.searchmusicband.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.nessing.searchmusicband.interfaces.UserCommand;
 
 import javax.persistence.*;
 
@@ -10,7 +9,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Table(name = "users")
-public class User implements UserCommand {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +21,9 @@ public class User implements UserCommand {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "nickname")
+    private String nickname;
 
     @Column(name = "name")
     private String name;
@@ -43,14 +45,4 @@ public class User implements UserCommand {
 
     @Column(name = "state")
     private String state;
-
-    @Override
-    public void statePublic() {
-        this.setState("public");
-    }
-
-    @Override
-    public void statePrivate() {
-        this.setState("private");
-    }
 }

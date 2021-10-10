@@ -19,35 +19,32 @@ public class AppService {
         return appRepository.findById(id);
     }
 
-    public User findUserByEmail(String email) {
-        if (listUsers.containsKey(email)) {
-            return listUsers.get(email);
-        } else {
-            User user = appRepository.findUserByEmail(email);
-            listUsers.put(email, user);
-            return user;
+    public User getUserByNickname(String nickname, Boolean add) {
+        if (listUsers.containsKey(nickname) && add) {
+            return listUsers.get(nickname);
         }
+        User user = appRepository.getUserByNickname(nickname);
+        listUsers.put(nickname, user);
+        return user;
     }
 
     public String saveOrUpdateUser(User user) {
-        if (appRepository.findUserByEmail(user.getEmail()) != null) {
-            return "Указанная почта уже существует";
-        } else {
-            appRepository.save(user);
-            listUsers.put(user.getEmail(), user);
-            return "Пользователь " + user.getName() + " создан";
+        if (appRepository.findUserByEmail(user.getEmail()) != null || appRepository.findUserByNickname(user.getNickname()) != null) {
+            return "Указанная почта или ник уже существует";
         }
+        appRepository.save(user);
+        listUsers.put(user.getNickname(), user);
+        return "Пользователь " + user.getNickname() + " создан";
     }
 
-    public User updateState(String email, String password, String state) {
-        User user = appRepository.findUserByEmail(email);
+    public User updateStateOfUser(String nickname, String password, String state) {
+        User user = appRepository.findUserByNickname(nickname);
         if (user.getPassword().equals(password)) {
-            if (state.equals("public")) {
-                user.statePrivate();
-                appRepository.save(user);
-            } else {
-                user.statePublic();
-                appRepository.save(user);
+            user.setState(state);
+            appRepository.saveAndFlush(user);
+            getUserByNickname(nickname, true);
+            for (Map.Entry<String, User> map : listUsers.entrySet()) {
+                System.out.println(map.getKey() + " : " + map.getValue());
             }
         }
         return user;
